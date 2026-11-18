@@ -9,3 +9,8 @@
 .dashboard .ui.small.statistics .statistic > .value {
     height: 50px;
 }
+
+.dashboard-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}

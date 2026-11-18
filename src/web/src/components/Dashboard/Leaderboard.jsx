@@ -12,86 +12,88 @@ const SORT_FIELDS = [
 const sortHeaderStyle = { cursor: 'pointer', userSelect: 'none' };
 
 const LeaderboardTable = ({ loading, onSort, rows, sortBy }) => (
-  <Table
-    className="unstackable"
-    compact="very"
-  >
-    <Table.Header>
-      <Table.Row>
-        <Table.HeaderCell
-          style={{ color: '#999', width: '2em' }}
-          textAlign="right"
-        >
-          #
-        </Table.HeaderCell>
-        <Table.HeaderCell>Username</Table.HeaderCell>
-        {SORT_FIELDS.map(({ label, sort }) => (
+  <div className="dashboard-table">
+    <Table
+      className="unstackable"
+      compact="very"
+    >
+      <Table.Header>
+        <Table.Row>
           <Table.HeaderCell
-            key={sort}
-            onClick={() => onSort(sort)}
-            style={sortHeaderStyle}
+            style={{ color: '#999', width: '2em' }}
             textAlign="right"
           >
-            {label}
-            {sortBy === sort && (
-              <Icon
-                name="chevron down"
-                style={{ marginLeft: '0.3em' }}
-              />
-            )}
+            #
           </Table.HeaderCell>
-        ))}
-      </Table.Row>
-    </Table.Header>
-    <Table.Body>
-      {loading && (
-        <Table.Row>
-          <Table.Cell
-            colSpan={5}
-            textAlign="center"
-          >
-            <Loader
-              active
-              inline="centered"
-              size="small"
-            />
-          </Table.Cell>
-        </Table.Row>
-      )}
-      {!loading && (!rows || rows.length === 0) && (
-        <Table.Row>
-          <Table.Cell
-            colSpan={5}
-            style={{ opacity: 0.5, textAlign: 'center' }}
-          >
-            No data to display
-          </Table.Cell>
-        </Table.Row>
-      )}
-      {!loading &&
-        rows &&
-        rows.map((row, index) => (
-          <Table.Row key={row.username}>
-            <Table.Cell
-              style={{ color: '#999' }}
+          <Table.HeaderCell>Username</Table.HeaderCell>
+          {SORT_FIELDS.map(({ label, sort }) => (
+            <Table.HeaderCell
+              key={sort}
+              onClick={() => onSort(sort)}
+              style={sortHeaderStyle}
               textAlign="right"
             >
-              {index + 1}
-            </Table.Cell>
-            <Table.Cell>{row.username}</Table.Cell>
-            <Table.Cell textAlign="right">
-              {row.count.toLocaleString()}
-            </Table.Cell>
-            <Table.Cell textAlign="right">
-              {formatBytes(row.totalBytes)}
-            </Table.Cell>
-            <Table.Cell textAlign="right">
-              {formatSpeed(row.averageSpeed)}
+              {label}
+              {sortBy === sort && (
+                <Icon
+                  name="chevron down"
+                  style={{ marginLeft: '0.3em' }}
+                />
+              )}
+            </Table.HeaderCell>
+          ))}
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {loading && (
+          <Table.Row>
+            <Table.Cell
+              colSpan={5}
+              textAlign="center"
+            >
+              <Loader
+                active
+                inline="centered"
+                size="small"
+              />
             </Table.Cell>
           </Table.Row>
-        ))}
-    </Table.Body>
-  </Table>
+        )}
+        {!loading && (!rows || rows.length === 0) && (
+          <Table.Row>
+            <Table.Cell
+              colSpan={5}
+              style={{ opacity: 0.5, textAlign: 'center' }}
+            >
+              No data to display
+            </Table.Cell>
+          </Table.Row>
+        )}
+        {!loading &&
+          rows &&
+          rows.map((row, index) => (
+            <Table.Row key={row.username}>
+              <Table.Cell
+                style={{ color: '#999' }}
+                textAlign="right"
+              >
+                {index + 1}
+              </Table.Cell>
+              <Table.Cell>{row.username}</Table.Cell>
+              <Table.Cell textAlign="right">
+                {row.count.toLocaleString()}
+              </Table.Cell>
+              <Table.Cell textAlign="right">
+                {formatBytes(row.totalBytes)}
+              </Table.Cell>
+              <Table.Cell textAlign="right">
+                {formatSpeed(row.averageSpeed)}
+              </Table.Cell>
+            </Table.Row>
+          ))}
+      </Table.Body>
+    </Table>
+  </div>
 );
 
 const initialState = {
